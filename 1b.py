@@ -73,24 +73,53 @@ debe ser una fecha válida (tupla de tres números enteros positivos, que corres
 en el calendario gregoriano, conforme a nuestra convención).
 '''
 
-def dia_siguiente(fecha):
-    año, mes, día = fecha
-    dias_por_mes = [31, 28 if not bisiesto(año) else 29, 31, 30, 31, 30, 
-                    31, 31, 30, 31, 30, 31]
+def dia_siguiente(fecha):     #fecha = (año, mes, dia)
 
-    día += 1
-    if día > dias_por_mes[mes - 1]:
-        día = 1
-        mes += 1
-        if mes > 12:
-            mes = 1
-            año += 1
-            # Comprobar si el nuevo año es bisiesto
-            if mes == 2 and bisiesto(año):
-                dias_por_mes[1] = 29
+    if (fecha_es_tupla(fecha) == False):                       #Se verifica que sea una tupla
+        return "Debe ingresar una tupla con la fecha: (año, mes, dia)"
+
+    año = fecha[0]
+    mes = fecha[1]
+    dia = fecha[2]
+
+
+    if (año <= 1582) or (mes > 12) or (mes <= 0) or (dia <= 0) or (dia >= 32):  #Se verifica que el año, mes y dia sean valores correctos
+        return "Debe ingresar una fecha válida"
+
+    meses_30 = [4, 6, 9, 11]
+    meses_31 = [1, 3, 5, 7, 8, 10]
+
+    if (mes == 2):              #aqui se verifica si es febrero y se el año es bisiesto para cambiar de mes o no
+        if (bisiesto(año)):
+            if (dia == 29):
+                return (año, mes+1, 1)
             else:
-                dias_por_mes[1] = 28
-    return (año, mes, día)
+                return (año, mes, dia+1)
+        else:
+            if (dia == 28):
+                return (año, mes+1, 1)
+            else:
+                return (año, mes, dia+1)
+
+    if (mes == 12):        #aqui se compara si es el ultimo dia del año para hacer el cambio de año
+        if (dia == 31):
+            return (año+1, 1, 1)
+        else:
+            return (año, mes, dia+1)
+
+    if (mes in meses_30):        #aqui se compara si es el ultimo dia de un mes de 30 dias
+        if (dia == 31):
+            return "Debe ingresar una fecha válida"
+        elif (dia == 30):
+            return (año, mes+1, 1)
+        else:
+            return (año, mes, dia+1)
+
+    if (mes in meses_31):        #aqui se compara si es el ultimo dia de un mes de 31 dias
+        if (dia == 31):
+            return (año, mes+1, 1)
+        else:
+            return (año, mes, dia+1)  
 
 '''
 R5 (imprimir_3x4): Dado un año perteneciente al rango permitido, desplegar en consola el
@@ -272,4 +301,4 @@ def dias_entre(f1, f2):
 
         return dias
 
-print("R8:", dias_entre((2023, 2, 28), (2024, 2, 29)))
+print("R8:", dias_entre((1590, 8, 17), (2100, 8, 17)))
