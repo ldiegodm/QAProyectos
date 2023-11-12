@@ -124,6 +124,44 @@ def dia_siguiente(fecha):     #fecha = (año, mes, dia)
         else:
             return (año, mes, dia+1)  
 
+'''
+R4 (ordinal_dia): Dada una fecha válida, (año, mes, día), determinar cuál es la posición de esa
+fecha dentro del año. Por ejemplo: ordinal_dia ((2021,1,1)) = 1, ordinal_dia ((2020,3,1)) = 61,
+ordinal_dia ((2020,2,29)) = 60. Note que corresponde a 1 + el número de días transcurridos
+desde el primero de enero de su año. El resultado debe ser un número entero. Pueden excluir
+las fechas del año en que entró en vigencia el calendario gregoriano en Roma.
+'''
+
+
+def ordinal_dia(fecha):
+
+    meses_30 = [4, 6, 9, 11]
+
+    if (fecha_es_tupla(fecha) == False):                       #Se verifica que sea una tupla
+        return "Debe ingresar una tupla con la fecha: (año, mes, dia)"
+
+    año = fecha[0]
+    mes = fecha[1]
+    dia = fecha[2]
+
+
+    if (año <= 1582) or (mes > 12) or (mes <= 0) or (dia <= 0) or (dia >= 32) or (mes in meses_30 and dia >= 31):  #Se verifica que el año, mes y dia sean valores correctos
+        return "Debe ingresar una fecha válida"
+
+    dias_del_año = 0
+
+    if (mes > 2 and bisiesto(año)):      #Si el mes es mayor a 2 y el año es bisiesto, se le suma un dia extra
+        dias_del_año += 1
+        
+    for mes_ant in range(1, mes):      #aqui se suman los dias de los meses anteriores
+        if (mes_ant == 2):
+            dias_del_año += 28
+        elif (mes_ant in meses_30):
+            dias_del_año += 30
+        else:
+            dias_del_año += 31
+
+    return dias_del_año + dia             #Se le suma el dia del mes en el que esta        
 
 '''
 R5 (imprimir_3x4): Dado un año perteneciente al rango permitido, desplegar en consola el
