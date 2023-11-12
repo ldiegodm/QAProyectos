@@ -74,15 +74,13 @@ debe lucir semejante al que se muestra al final de este enunciado. Pueden exclui
 del año en que entró en vigencia el calendario gregoriano en Roma.
 '''
 
-def dia_de_la_semana(año, mes, dia):
-    a = int((14 - mes) / 12)
-    y = año - a
-    m = int(mes + (12 * a) - 2)
-    d = int(dia + y + int(y/4) - int(y/100) + int(y/400)+((31*m) / 12)) % 7
-    
-    dias = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"]
+def imprimir_3x4(año):
 
-    print(dias[d])
+    # Verificar que el año sea valido
+    if año > 1582:
 
-dia_de_la_semana(2024, 3, 1)
+        print("hello world")
+
+
+imprimir_3x4(2024)
 

@@ -74,15 +74,39 @@ debe lucir semejante al que se muestra al final de este enunciado. Pueden exclui
 del año en que entró en vigencia el calendario gregoriano en Roma.
 '''
 
-def dia_de_la_semana(año, mes, dia):
-    a = int((14 - mes) / 12)
-    y = año - a
-    m = int(mes + (12 * a) - 2)
-    d = int(dia + y + int(y/4) - int(y/100) + int(y/400)+((31*m) / 12)) % 7
+
+
+'''
+R6 (dia_semana): Dada una fecha válida, determinar el día de la semana que le
+corresponde, con la siguiente codificación: 0 = domingo, 1 = lunes, 2 = martes, 3 =
+miércoles, 4 = jueves, 5 = viernes, 6 = sábado. El resultado debe ser un número entero,
+conforme a la codificación indicada.
+'''
+
+def dia_semana(fecha):
+
+    # Verificar que la fecha sea valida
+    if fecha_es_valida(fecha):
+
+        año = fecha[0]
+        mes = fecha[1]
+        dia = fecha[2]
+
+        # Congruencia de Zeller
+        # https://es.wikipedia.org/wiki/Congruencia_de_Zeller
+
+        a = int((14 - mes) / 12)
+        y = año - a
+        m = int(mes + (12 * a) - 2)
+        d = int(dia + y + int(y/4) - int(y/100) + int(y/400)+((31*m) / 12)) % 7
+
+        # Si la fecha es valida, retornar el dia de la semana
+        return d
     
-    dias = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"]
+    # Si la fecha no es valida, retornar -1
+    return -1
 
-    print(dias[d])
-
-dia_de_la_semana(2024, 3, 1)
+dias = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"]
+dia = dia_semana((2023, 11, 12))
+print("R6: ", dia, '=', dias[dia])
 
