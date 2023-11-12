@@ -78,9 +78,116 @@ def imprimir_3x4(año):
 
     # Verificar que el año sea valido
     if año > 1582:
+        
+        print("    --------------------------------- Calendario del año", año, "D.C. ------------------------------------")
 
-        print("hello world")
+        print()
+
+        # Definir los nombres de los meses
+        meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", 
+                "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"]
+        
+        # Definir la cantidad de dias de cada mes
+        dias_por_mes = [31, 28 if not bisiesto(año) else 29, 31, 30, 31, 30, 
+                        31, 31, 30, 31, 30, 31]
+        
+        # Almacena los datos de las semanas
+        semanas = []
+
+        # Recorre los meses
+        for i in range(0, len(meses)):
+            
+            # Obtiene la ubicacion del primer dia del mes
+            primer_dia = primer_dia_del_mes(año, i + 1)
+
+            semana = [] # Almacena los datos de las semanas
+            dias = [] # Almancena los dias de esa semana
+            dia = 1 # Contador de los dias
+
+            # tamaño del calendario es 6 x 7
+            for j in range(0, 6 * 7):
+
+                # Empieza a contar desde el primer dia del mes
+                # Y hasta el ultimo dia del mes, sustrayendo la posicion del primer dia del mes
+                if j == primer_dia or j > primer_dia and j - primer_dia < dias_por_mes[i]:
+                    dias.append(str(dia).rjust(2, ' '))
+                    dia = dia + 1
+                else:
+                    # Si todavía no es el primer dia o ya pasó el ultimo dia, se llena con espacios en blancos
+                    dias.append(str.rjust('', 2, ' '))
+                    
+            # Recorre la lista de dias y los une en una sola cadena de texto
+            for i in range(0, len(dias), 7):
+                semana.append(' '.join(str(e) for e in dias[i:i + 7]))
+
+            # Guarda la cadena de texto de la semana en el array
+            semanas.append(semana)
+
+        # Imprime el calendario por secciones
+        size = 4
+        for i in range(0, len(meses), size):
+            print_mes([
+                meses[i:i + size],
+                semanas[i:i + size]
+            ])
+            print()
 
 
-imprimir_3x4(2024)
+def print_mes(data):
+
+    # Recibe un array 7x7 con los datos del mes
+    width = 25
+    fill = ' '
+
+    # Imprime los encabezados
+    monthHeader = ''
+    weekDaysHeader = ''
+    week0 = ''
+    week1 = ''
+    week2 = ''
+    week3 = ''
+    week4 = ''
+    week5 = ''
+
+    for value in data[0]:
+        monthHeader += str.center(value, width, fill) + '|'
+        weekDaysHeader += str.center(' D  L  K  M  J  V  S', width, fill) + '|'
+
+    for week in data[1]:
+        week0 += str.center(week[0], width, fill) + '|'
+        week1 += str.center(week[1], width, fill) + '|'
+        week2 += str.center(week[2], width, fill) + '|'
+        week3 += str.center(week[3], width, fill) + '|'
+        week4 += str.center(week[4], width, fill) + '|'
+        week5 += str.center(week[5], width, fill) + '|'
+
+    print(monthHeader)
+    print(weekDaysHeader)
+    print(week0)
+    print(week1)
+    print(week2)
+    print(week3)
+    print(week4)
+    print(week5)
+
+
+def primer_dia_del_mes(año, mes):
+        
+    dia = 1
+
+    # Congruencia de Zeller
+    # https://es.wikipedia.org/wiki/Congruencia_de_Zeller
+
+    a = int((14 - mes) / 12)
+    y = año - a
+    m = int(mes + (12 * a) - 2)
+    d = int(dia + y + int(y/4) - int(y/100) + int(y/400)+((31*m) / 12)) % 7
+
+    # Si la fecha es valida, retornar el dia de la semana
+    return d
+    
+
+
+imprimir_3x4(2028)
+
 
