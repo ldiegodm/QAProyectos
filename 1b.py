@@ -17,7 +17,7 @@ resultado debe ser un valor booleano, True o False.
 '''
 
 def bisiesto(año):
-    return año == 2024
+    return (año % 4 == 0 and año % 100 != 0) or (año % 400 == 0)
 
 
 '''
@@ -186,6 +186,7 @@ def primer_dia_del_mes(año, mes):
     # Si la fecha es valida, retornar el dia de la semana
     return d
 
+print("R5: ")
 imprimir_3x4(2028)
 
 '''
@@ -222,3 +223,48 @@ dias = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"
 dia = dia_semana((2023, 11, 12))
 print("R6: ", dia, '=', dias[dia])
 
+'''
+R8 (dias_entre): Dadas dos fechas válidas, f1 y f2, sin importar si f1 ≤ f2 o f2 ≤ f1,
+determinar el número de días naturales entre las dos fechas. Si f1 = f2, entonces
+días_entre(f1, f2) = 0. El resultado debe ser un número entero no negativo.
+'''
+
+def dias_entre(f1, f2):
+    if fecha_es_valida(f1) and fecha_es_valida(f2):
+
+        # Si las fechas son iguales, retornar 0
+        if f1 == f2:
+            return 0
+        
+        # Si f1 es mayor que f2, intercambiarlas
+        f1, f2 = min(f1, f2), max(f1, f2)
+
+
+        dias_por_mes = [31, 28 if not bisiesto(f1[0]) else 29, 31, 30, 31, 30, 
+                        31, 31, 30, 31, 30, 31]
+        dias = 0
+
+        # si alguno de los años es bisiesto, sumar un día
+        for i in range(f1[0], f2[0]):
+            if bisiesto(i):
+                dias += 1
+
+        while f1 < f2:
+            dias += 1
+            f1 = siguiente_dia(f1, dias_por_mes)
+
+        return dias
+
+def siguiente_dia(fecha, dias_por_mes):
+    
+    año, mes, día = fecha
+    día += 1
+    if día > dias_por_mes[mes - 1]:
+        día = 1
+        mes += 1
+        if mes > 12:
+            mes = 1
+            año += 1
+    return (año, mes, día)
+
+print("R8:", dias_entre((2023, 2, 28), (2024, 2, 29)))
