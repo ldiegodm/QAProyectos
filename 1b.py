@@ -68,6 +68,31 @@ otra_fecha_no_valida = (2024, 4, 31);
 print("R2: ", fecha_es_valida(otra_fecha_valida))
 
 '''
+R3 (dia_siguiente): Dada una fecha válida, determinar la fecha del día siguiente. El resultado
+debe ser una fecha válida (tupla de tres números enteros positivos, que corresponde a una fecha
+en el calendario gregoriano, conforme a nuestra convención).
+'''
+
+def dia_siguiente(fecha):
+    año, mes, día = fecha
+    dias_por_mes = [31, 28 if not bisiesto(año) else 29, 31, 30, 31, 30, 
+                    31, 31, 30, 31, 30, 31]
+
+    día += 1
+    if día > dias_por_mes[mes - 1]:
+        día = 1
+        mes += 1
+        if mes > 12:
+            mes = 1
+            año += 1
+            # Comprobar si el nuevo año es bisiesto
+            if mes == 2 and bisiesto(año):
+                dias_por_mes[1] = 29
+            else:
+                dias_por_mes[1] = 28
+    return (año, mes, día)
+
+'''
 R5 (imprimir_3x4): Dado un año perteneciente al rango permitido, desplegar en consola el
 calendario de ese año en formato de 3 secuencias (‘filas’) de 4 meses cada una. El resultado
 debe lucir semejante al que se muestra al final de este enunciado. Pueden excluir la impresión
@@ -239,32 +264,12 @@ def dias_entre(f1, f2):
         # Si f1 es mayor que f2, intercambiarlas
         f1, f2 = min(f1, f2), max(f1, f2)
 
-
-        dias_por_mes = [31, 28 if not bisiesto(f1[0]) else 29, 31, 30, 31, 30, 
-                        31, 31, 30, 31, 30, 31]
         dias = 0
-
-        # si alguno de los años es bisiesto, sumar un día
-        for i in range(f1[0], f2[0]):
-            if bisiesto(i):
-                dias += 1
 
         while f1 < f2:
             dias += 1
-            f1 = siguiente_dia(f1, dias_por_mes)
+            f1 = dia_siguiente(f1)
 
         return dias
-
-def siguiente_dia(fecha, dias_por_mes):
-    
-    año, mes, día = fecha
-    día += 1
-    if día > dias_por_mes[mes - 1]:
-        día = 1
-        mes += 1
-        if mes > 12:
-            mes = 1
-            año += 1
-    return (año, mes, día)
 
 print("R8:", dias_entre((2023, 2, 28), (2024, 2, 29)))
