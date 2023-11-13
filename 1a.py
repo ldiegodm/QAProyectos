@@ -223,7 +223,8 @@ def imprimir_3x4(año):
                 semanas[i:i + size]
             ])
             print()
-
+    else:
+        print("El año debe ser mayor al año en que entró en vigencia el calendario gregoriano en Roma (1582)")
 
 def print_mes(data):
 
@@ -280,6 +281,6 @@ def primer_dia_del_mes(año, mes):
     
 
 print("R5: ")
-imprimir_3x4(2028)
+imprimir_3x4(1583)
 
 
