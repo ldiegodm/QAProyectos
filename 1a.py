@@ -78,16 +78,15 @@ en el calendario gregoriano, conforme a nuestra convención).
 
 def dia_siguiente(fecha):     #fecha = (año, mes, dia)
 
-    if (fecha_es_tupla(fecha) == False):                       #Se verifica que sea una tupla
+    if (not fecha_es_tupla(fecha)):   #Se verifica que sea una tupla
         return "Debe ingresar una tupla con la fecha: (año, mes, dia)"
+
+    if (not fecha_es_valida(fecha)):  #Se verifica que la fecha sea valida
+        return "Debe ingresar una fecha válida"
 
     año = fecha[0]
     mes = fecha[1]
     dia = fecha[2]
-
-
-    if (año <= 1582) or (mes > 12) or (mes <= 0) or (dia <= 0) or (dia >= 32):  #Se verifica que el año, mes y dia sean valores correctos
-        return "Debe ingresar una fecha válida"
 
     meses_30 = [4, 6, 9, 11]
     meses_31 = [1, 3, 5, 7, 8, 10]
@@ -111,9 +110,7 @@ def dia_siguiente(fecha):     #fecha = (año, mes, dia)
             return (año, mes, dia+1)
 
     if (mes in meses_30):        #aqui se compara si es el ultimo dia de un mes de 30 dias
-        if (dia == 31):
-            return "Debe ingresar una fecha válida"
-        elif (dia == 30):
+        if (dia == 30):
             return (año, mes+1, 1)
         else:
             return (año, mes, dia+1)
@@ -131,22 +128,19 @@ ordinal_dia ((2020,2,29)) = 60. Note que corresponde a 1 + el número de días t
 desde el primero de enero de su año. El resultado debe ser un número entero. Pueden excluir
 las fechas del año en que entró en vigencia el calendario gregoriano en Roma.
 '''
-
-
 def ordinal_dia(fecha):
 
-    meses_30 = [4, 6, 9, 11]
-
-    if (fecha_es_tupla(fecha) == False):                       #Se verifica que sea una tupla
+    if (not fecha_es_tupla(fecha)):   #Se verifica que sea una tupla
         return "Debe ingresar una tupla con la fecha: (año, mes, dia)"
+
+    if (not fecha_es_valida(fecha)):  #Se verifica que la fecha sea valida
+        return "Debe ingresar una fecha válida"
+
+    meses_30 = [4, 6, 9, 11]
 
     año = fecha[0]
     mes = fecha[1]
     dia = fecha[2]
-
-
-    if (año <= 1582) or (mes > 12) or (mes <= 0) or (dia <= 0) or (dia >= 32) or (mes in meses_30 and dia >= 31):  #Se verifica que el año, mes y dia sean valores correctos
-        return "Debe ingresar una fecha válida"
 
     dias_del_año = 0
 
@@ -161,7 +155,7 @@ def ordinal_dia(fecha):
         else:
             dias_del_año += 31
 
-    return dias_del_año + dia             #Se le suma el dia del mes en el que esta        
+    return dias_del_año + dia             #Se le suma el dia del mes en el que esta            
 
 '''
 R5 (imprimir_3x4): Dado un año perteneciente al rango permitido, desplegar en consola el
