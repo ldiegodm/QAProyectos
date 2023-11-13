@@ -5,15 +5,10 @@ valor booleano, True o False.
 '''
 
 def fecha_es_tupla(fecha):
-    # Verificar que la fecha sea una tupla de 3 elementos
-    if type(fecha) == tuple and len(fecha) == 3:
-        # Verificar que los elementos de la tupla sean numeros enteros
-        if type(fecha[0]) == int and type(fecha[1]) == int and type(fecha[2]) == int:
-            # Verificar que los elementos de la tupla sean positivos
-            if fecha[0] > 0 and fecha[1] > 0 and fecha[2] > 0:
-                return True
-    # Si no cumple con las condiciones anteriores, el formato de la fecha no es valido
-    return False
+    return (type(fecha) == tuple and len(fecha) == 3 
+    and type(fecha[0]) == int and type(fecha[1]) == int and type(fecha[2]) == int 
+    and fecha[0] > 0 and fecha[1] > 0 and fecha[2] > 0)
+
     
 fecha_tupla = (2019, 10, 10)
 print("R0: ", fecha_es_tupla(fecha_tupla))
