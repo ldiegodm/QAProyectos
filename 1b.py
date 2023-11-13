@@ -1,3 +1,5 @@
+from datetime import date
+
 '''
 R0 (fecha_es_tupla): Todas las fechas deben ser creadas como tuplas de tres números enteros
 positivos (ternas), en este orden: (año, mes, día). El resultado de fecha_es_tupla (f) debe ser un
@@ -302,3 +304,13 @@ def dias_entre(f1, f2):
         return dias
 
 print("R8:", dias_entre((1590, 8, 17), (2100, 8, 17)))
+
+'''
+R10 (fecha_hoy): Obtener la fecha ‘del sistema’ a partir de la invocación de la función de
+biblioteca de Pyhton today() , luego convertirla a una fecha válida 1 – tupla (año, mes,
+día) – en el calendario gregoriano, según las convenciones usadas en esta asignación y
+la anterior. El resultado debe ser una fecha válida. Ref. 
+'''
+
+def fecha_hoy():
+    return (date.today().year, date.today().month, date.today().day)   #retorna de una vez la tupla con la fecha de hoy
