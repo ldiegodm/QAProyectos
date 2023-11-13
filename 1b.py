@@ -30,8 +30,8 @@ def fecha_es_valida(fecha):
     # Verificar que el formato de la fecha sea una tupla
     if fecha_es_tupla(fecha):
         
-        # Verificar que el año sea mayor a 1582
-        if fecha[0] > 1582:
+        # Verificar que la fecha sea mayor al 4 de octubre de 1582
+        if fecha >= (1582, 10, 4):
 
             # Verificar que el mes este entre 1 y 12
             if fecha[1] >= 1 and fecha[1] <= 12:
@@ -130,7 +130,7 @@ del año en que entró en vigencia el calendario gregoriano en Roma.
 
 def imprimir_3x4(año):
 
-    # Verificar que el año sea valido
+    # Verificar que el año sea mayor al año en que entró en vigencia el calendario gregoriano en Roma
     if año > 1582:
         
         print("    --------------------------------- Calendario del año", año, "D.C. ------------------------------------")
