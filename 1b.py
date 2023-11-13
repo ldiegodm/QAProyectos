@@ -7,8 +7,10 @@ valor booleano, True o False.
 '''
 
 def fecha_es_tupla(fecha):
-    # Verificar que la fecha sea una tupla de 3 elementos
-    return type(fecha) == tuple and len(fecha) == 3
+    return (
+        type(fecha) == tuple and len(fecha) == 3 and 
+        type(fecha[0]) == int and type(fecha[1]) == int and type(fecha[2]) == int 
+        and fecha[0] > 0 and fecha[1] > 0 and fecha[2] > 0)
     
 fecha_tupla = (2019, 10, 10)
 print("R0: ", fecha_es_tupla(fecha_tupla))
@@ -187,6 +189,8 @@ def imprimir_3x4(año):
                 semanas[i:i + size]
             ])
             print()
+    else:
+        print("El año debe ser mayor al año en que entró en vigencia el calendario gregoriano en Roma (1582)")
 
 
 def print_mes(data):

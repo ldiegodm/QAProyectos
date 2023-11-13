@@ -5,9 +5,10 @@ valor booleano, True o False.
 '''
 
 def fecha_es_tupla(fecha):
-    return (type(fecha) == tuple and len(fecha) == 3 
-    and type(fecha[0]) == int and type(fecha[1]) == int and type(fecha[2]) == int 
-    and fecha[0] > 0 and fecha[1] > 0 and fecha[2] > 0)
+    return (
+        type(fecha) == tuple and len(fecha) == 3 and 
+        type(fecha[0]) == int and type(fecha[1]) == int and type(fecha[2]) == int 
+        and fecha[0] > 0 and fecha[1] > 0 and fecha[2] > 0)
 
     
 fecha_tupla = (2019, 10, 10)
