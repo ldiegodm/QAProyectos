@@ -318,3 +318,51 @@ la anterior. El resultado debe ser una fecha válida. Ref.
 
 def fecha_hoy():
     return (date.today().year, date.today().month, date.today().day)   #retorna de una vez la tupla con la fecha de hoy
+
+'''
+• R11 (edad_hoy): Dada una fecha válida f, que corresponde a la fecha de nacimiento de
+alguna persona, determinar la edad de la persona en años, meses y días cumplidos
+desde la fecha f hasta la fecha de hoy. Suponemos que f es menor o igual que la fecha
+de hoy. El resultado debe ser una tupla (año, mes, día); note que – en este caso – eso
+no es una fecha válida, sino una tupla con los tres componentes requeridos. El resultado
+debe ser una tupla de tres números enteros no negativos.
+'''
+
+def edad_hoy(fecha):
+
+    if (not fecha_es_tupla(fecha)):   #Se verifica que sea una tupla
+        return "Debe ingresar una tupla con la fecha: (año, mes, dia)"
+
+    if (not fecha_es_valida(fecha)) or (fecha[0] > date.today().year ):  #Se verifica que la fecha sea valida
+        return "Debe ingresar una fecha válida"
+
+    año = fecha[0]
+    mes = fecha[1]
+    dia = fecha[2]
+
+    año_hoy = date.today().year
+    mes_hoy = date.today().month
+    dia_hoy = date.today().day
+
+    meses_30 = [4, 6, 9, 11]
+
+    dif_año = año_hoy - año                 #Se saca la diferencia del año, del mes, y la del dia.
+    dif_mes = mes_hoy - mes
+    dif_dia = dia_hoy - dia
+
+    if (dif_mes < 0):  #Si el mes es negativo se le resta uno al año ya que el mes de nacimiento es mayor que el actual 
+        dif_año -= 1
+        dif_mes += 12
+    
+    if (dif_dia < 0):  #Si el dia es negativo se le resta uno al mes ya que el dia de nacimiento es mayor que el actual 
+        dif_mes -= 1
+        x = dif_mes-1
+
+        if (x == 2 and bisiesto(año)):   #Se le suman los dias del mes anterior a la diferencia de dias y aqui se verifica si es febrero, si es mes de 30 dias o si es de 31
+            dif_dia += 29
+        elif (x == 2 and not bisiesto(año)):
+            dif_dia += 28
+        else:
+            dif_dia += 31
+
+    return (dif_año, dif_mes, dif_dia)
