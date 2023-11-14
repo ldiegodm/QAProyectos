@@ -1,10 +1,11 @@
-
+from datetime import date
+from datetime import datetime, timedelta
 '''
 R0 (fecha_es_tupla): Todas las fechas deben ser creadas como tuplas de tres números enteros
 positivos (ternas), en este orden: (año, mes, día). El resultado de fecha_es_tupla (f) debe ser un
 valor booleano, True o False.
 '''
-def R0(fecha):
+def fecha_es_tupla(fecha):
     try:
         if not isinstance(fecha, tuple) or len(fecha) != 3:
             return False
@@ -25,14 +26,13 @@ def R0(fecha):
 
     except (TypeError, IndexError):
         return False
-    
-#----------------------------------------------------------------------------------------------------------------------------------------------
+
 '''
 R1 (bisiesto): Dado un año perteneciente al rango permitido, determinar si este es bisiesto. El
 resultado debe ser un valor booleano, True o False.
 '''
 
-def R1(año):
+def bisiesto(año):
     try:
         if año>= 1582:
             if (año % 4 == 0 and año % 100 != 0) or (año % 400 == 0):
@@ -44,16 +44,16 @@ def R1(año):
     except (TypeError, IndexError):
         return False
 
-#----------------------------------------------------------------------------------------------------------------------------------------------
+
 '''
 R2 (fecha_es_valida): Dada una fecha, determinar si ésta es válida según el calendario
 gregoriano. El resultado debe ser un valor booleano, True o False.
 '''
 
-def R2(fecha):
+def fecha_es_valida(fecha):
     try:
     # Verificar que el formato de la fecha sea una tupla
-        if R0(fecha):
+        if fecha_es_tupla(fecha):
         
         # Verificar que la fecha sea mayor al 4 de octubre de 1582
             if fecha >= (1582, 10, 4):
@@ -74,7 +74,7 @@ def R2(fecha):
                 
                 # Si el mes es febrero
                 elif fecha[1] == 2:
-                    if R1(fecha[0]):
+                    if bisiesto(fecha[0]):
                         # Si el año es bisiesto verificar que el dia este entre 1 y 29
                         return fecha[2] >= 1 and fecha[2] <= 29
                     else:
@@ -87,19 +87,19 @@ def R2(fecha):
         return False
 
 
-#----------------------------------------------------------------------------------------------------------------------------------------------
+
 '''
 R3 (dia_siguiente): Dada una fecha válida, determinar la fecha del día siguiente. El resultado
 debe ser una fecha válida (tupla de tres números enteros positivos, que corresponde a una fecha
 en el calendario gregoriano, conforme a nuestra convención).
 '''
 
-def R3(fecha):     #fecha = (año, mes, dia)
+def dia_siguiente(fecha):     #fecha = (año, mes, dia)
     try:
-        if (not R0(fecha)):   #Se verifica que sea una tupla
+        if (not fecha_es_tupla(fecha)):   #Se verifica que sea una tupla
             return "Debe ingresar una tupla con la fecha: (año, mes, dia)"
 
-        if (not R2(fecha)):  #Se verifica que la fecha sea valida
+        if (not fecha_es_valida(fecha)):  #Se verifica que la fecha sea valida
             return "Debe ingresar una fecha válida"
 
         año = fecha[0]
@@ -110,7 +110,7 @@ def R3(fecha):     #fecha = (año, mes, dia)
         meses_31 = [1, 3, 5, 7, 8, 10]
 
         if (mes == 2):              #Se verifica si es febrero y se el año es bisiesto para cambiar de mes o no
-            if (R1(año)):
+            if (bisiesto(año)):
                 if (dia == 29):
                  return (año, mes+1, 1)
                 else:
@@ -140,6 +140,8 @@ def R3(fecha):     #fecha = (año, mes, dia)
                 return (año, mes, dia+1)  
     except (TypeError, IndexError):
         return False
+
+
 #----------------------------------------------------------------------------------------------------------------------------------------------
 '''
 R4 (ordinal_dia): Dada una fecha válida, (año, mes, día), determinar cuál es la posición de esa
@@ -148,12 +150,12 @@ ordinal_dia ((2020,2,29)) = 60. Note que corresponde a 1 + el número de días t
 desde el primero de enero de su año. El resultado debe ser un número entero. Pueden excluir
 las fechas del año en que entró en vigencia el calendario gregoriano en Roma.
 '''
-def R4(fecha):
+def ordinal_dia(fecha):
     try:
-        if (not R0(fecha)):   #Se verifica que sea una tupla
+        if (not fecha_es_tupla(fecha)):   #Se verifica que sea una tupla
             return "Debe ingresar una tupla con la fecha: (año, mes, dia)"
 
-        if (not R2(fecha)):  #Se verifica que la fecha sea valida
+        if (not fecha_es_valida(fecha)):  #Se verifica que la fecha sea valida
             return "Debe ingresar una fecha válida"
 
         meses_30 = [4, 6, 9, 11]
@@ -164,7 +166,7 @@ def R4(fecha):
 
         dias_del_año = 0
 
-        if (mes > 2 and R1(año)):      #Si el mes es mayor a 2 y el año es bisiesto, se le suma un dia extra
+        if (mes > 2 and bisiesto(año)):      #Si el mes es mayor a 2 y el año es bisiesto, se le suma un dia extra
             dias_del_año += 1
         
         for mes_ant in range(1, mes):      #aqui se suman los dias de los meses anteriores
@@ -180,8 +182,6 @@ def R4(fecha):
     except (TypeError, IndexError):
         return False
 
-
-#----------------------------------------------------------------------------------------------------------------------------------------------
 '''
 R5 (imprimir_3x4): Dado un año perteneciente al rango permitido, desplegar en consola el
 calendario de ese año en formato de 3 secuencias (‘filas’) de 4 meses cada una. El resultado
@@ -189,7 +189,7 @@ debe lucir semejante al que se muestra al final de este enunciado. Pueden exclui
 del año en que entró en vigencia el calendario gregoriano en Roma.
 '''
 
-def R5(año):
+def imprimir_3x4(año):
     try:
     # Verificar que el año sea mayor al año en que entró en vigencia el calendario gregoriano en Roma
         if año > 1582:
@@ -203,7 +203,7 @@ def R5(año):
                 "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"]
         
             # Definir la cantidad de dias de cada mes
-            dias_por_mes = [31, 28 if not R1(año) else 29, 31, 30, 31, 30, 
+            dias_por_mes = [31, 28 if not bisiesto(año) else 29, 31, 30, 31, 30, 
                         31, 31, 30, 31, 30, 31]
         
          # Almacena los datos de las semanas
@@ -309,49 +309,37 @@ def primer_dia_del_mes(año, mes):
 
 
 
-#----------------------------------------------------------------------------------------------------------------------------------------------.
-
-
-
-#a continuacion se genera el main del programa
-
-
-# main 
-
 while True:
-        print("Seleccione una función:")
-        print("1. R0 (fecha_es_tupla)")
-        print("2. R1 (bisiesto)")
-        print("3. R2 (fecha_es_valida)")
-        print("4. R3 (dia_siguiente)")
-        print("5. R4 (ordinal_dia)")
-        print("6. R5 (imprimir_3x4)")
-        print("7. Salir")
+    try:
+        print("Elija una opción:")
+        print("0. Salir")
+        print("1. Verificar si una fecha es tupla")
+        print("2. Verificar si un año es bisiesto")
+        print("3. Determinar el día siguiente a una fecha")
+        print("4. Determinar el ordinal del día en un año")
+        print("5. Imprimir un calendario")
+        
+        opcion = input("Ingrese el número de la opción (0 para salir): ")
 
-        opcion = input("Ingrese el número de la función que desea ejecutar: ")
-
+        if opcion == '0':
+            break
         if opcion == '1':
             fecha = eval(input("Ingrese una fecha en formato de tupla (año, mes, día): "))
-            print("R0:", R0(fecha))
+            print("fecha_es_tupla:", fecha_es_tupla(fecha))
         elif opcion == '2':
             año = int(input("Ingrese un año: "))
-            print("R1:", R1(año))
+            print("Bisiesto:", bisiesto(año))
         elif opcion == '3':
             fecha = eval(input("Ingrese una fecha en formato de tupla (año, mes, día): "))
-            print("R2:", R2(fecha))
+            print("fecha_es_valida:", fecha_es_valida(fecha))
         elif opcion == '4':
             fecha = eval(input("Ingrese una fecha en formato de tupla (año, mes, día): "))
-            print("R3:", R3(fecha))
+            print("dia_siguiente:", dia_siguiente(fecha))
         elif opcion == '5':
             fecha = eval(input("Ingrese una fecha en formato de tupla (año, mes, día): "))
-            print("R4:", R4(fecha))
-        elif opcion == '6':
-            año = int(input("Ingrese un año: "))
-            print("R5:")
-            R5(año)
-        elif opcion == '7':
-            print("Saliendo del programa...")
-            break
+            print("ordinal_dia:", ordinal_dia(fecha))
         else:
-            print("Opción no válida. Por favor, ingrese un número del 1 al 7.")
+            print("Opción no válida. Por favor, ingrese un número de opción válido.")
 
+    except (TypeError, IndexError):
+        print("Algo salio mal") 
