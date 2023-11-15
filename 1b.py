@@ -354,6 +354,12 @@ fecha_futura(f, 0) = f. El resultado debe ser una fecha válida.
 '''
 def fecha_futura(fecha, n):
     try:
+        if (not fecha_es_tupla(fecha)):   #Se verifica que sea una tupla
+            return "Debe ingresar una tupla con la fecha: (año, mes, dia)"
+
+        if (not fecha_es_valida(fecha)):  #Se verifica que la fecha sea valida
+            return "Debe ingresar una fecha válida"
+
         año, mes, día = fecha
 
         # dias en año no bisieso
@@ -424,46 +430,40 @@ mes, día); note que – en este caso – tal tupla no es necesariamente una fec
 sino una tupla con los tres componentes enteros requeridos. El resultado debe ser una
 tupla de tres números enteros no negativos.
 '''
-def edad_al(fecha_nacimiento):
+
+def edad_al(fecha_nacimiento, fecha_actual):
     try:
+        if fecha_es_valida(fecha_nacimiento) and fecha_es_valida(fecha_actual):
+            año_nacimiento, mes_nacimiento, día_nacimiento = fecha_nacimiento
+            año_actual, mes_actual, día_actual = fecha_actual
+        if (fecha_nacimiento<=fecha_actual):
+            edad_años = año_actual - año_nacimiento
 
-        # Obtener la fecha actual del sistema
-        fecha_actual = datetime.now()
-        año_actual, mes_actual, día_actual = fecha_actual.year, fecha_actual.month, fecha_actual.day
+            if (mes_actual, día_actual) < (mes_nacimiento, día_nacimiento):
+                edad_años -= 1
 
-        año_nacimiento, mes_nacimiento, día_nacimiento = fecha_nacimiento
+            if mes_actual < mes_nacimiento or (mes_actual == mes_nacimiento and día_actual < día_nacimiento):
+                mes_actual += 12
 
-        # Calcular la edad en años
-        edad_años = año_actual - año_nacimiento
+            mes_cumplidos = mes_actual - mes_nacimiento
+            día_cumplidos = día_actual - día_nacimiento
 
-        # Si el cumpleaños no ha pasado aún, se ajusta la edad
-        if (mes_actual, día_actual) < (mes_nacimiento, día_nacimiento):
-            edad_años -= 1
+            if día_cumplidos < 0:
+                mes_cumplidos -= 1
+                días_en_el_mes_anterior = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
-        # Calcular los meses y días cumplidos
-        if mes_actual < mes_nacimiento or (mes_actual == mes_nacimiento and día_actual < día_nacimiento):
-            mes_actual += 12
+                if bisiesto(año_nacimiento):
+                    días_en_el_mes_anterior[2] = 29
 
-        mes_cumplidos = mes_actual - mes_nacimiento
-        día_cumplidos = día_actual - día_nacimiento
+                día_cumplidos = días_en_el_mes_anterior[mes_actual - 1] + día_cumplidos
 
-        # Ajustar los días si son negativos
-        if día_cumplidos < 0:
-            mes_cumplidos -= 1
-            días_en_el_mes_anterior = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+            if mes_cumplidos < 0:
+                mes_cumplidos += 12
+                edad_años -= 1
 
-            # Verificar si el año de nacimiento es bisiesto
-            if bisiesto(año_nacimiento):
-                días_en_el_mes_anterior[2] = 29
+            return edad_años, mes_cumplidos, día_cumplidos
 
-            día_cumplidos = días_en_el_mes_anterior[mes_actual - 1] + día_cumplidos
-
-        # Manejar meses negativos
-        if mes_cumplidos < 0:
-            mes_cumplidos += 12
-            edad_años -= 1
-
-        return edad_años, mes_cumplidos, día_cumplidos
+        return False
 
     except (TypeError, IndexError):
         return False
@@ -583,7 +583,8 @@ while True:
             print("dias_entre:", dias_entre(fecha1,fecha2))
         elif opcion == '9':
              fecha = eval(input("Ingrese una fecha  en formato de tupla (año, mes, día): "))
-             print("edad_al:", edad_al(fecha))
+             fecha1 = eval(input("Ingrese una fecha2  en formato de tupla (año, mes, día): "))
+             print("edad_al:", edad_al(fecha,fecha1))
         elif opcion == '10':
             print("fecha_hoy:", fecha_hoy())
         elif opcion == '11':
