@@ -509,7 +509,7 @@ def edad_hoy(fecha):
 
         meses_30 = [4, 6, 9, 11]
 
-        if_año = año_hoy - año                 #Se saca la diferencia del año, del mes, y la del dia.
+        dif_año = año_hoy - año                 #Se saca la diferencia del año, del mes, y la del dia.
         dif_mes = mes_hoy - mes
         dif_dia = dia_hoy - dia
 
