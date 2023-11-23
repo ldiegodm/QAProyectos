@@ -339,7 +339,7 @@ while True:
         elif opcion == '5':
             fecha = eval(input("Ingrese una fecha en formato de tupla (año, mes, día): "))
             print("ordinal_dia:", ordinal_dia(fecha))
-        elif opcion==6:
+        elif opcion== '6':
             año = int(input("Ingrese un año: "))
             print("Calendario:", imprimir_3x4(año))
         else:

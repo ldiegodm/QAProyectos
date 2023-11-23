@@ -86,8 +86,6 @@ def fecha_es_valida(fecha):
     except (TypeError, IndexError):
         return False
 
-
-
 '''
 R3 (dia_siguiente): Dada una fecha válida, determinar la fecha del día siguiente. El resultado
 debe ser una fecha válida (tupla de tres números enteros positivos, que corresponde a una fecha
@@ -140,7 +138,6 @@ def dia_siguiente(fecha):     #fecha = (año, mes, dia)
                 return (año, mes, dia+1)  
     except (TypeError, IndexError):
         return False
-
 
 #----------------------------------------------------------------------------------------------------------------------------------------------
 '''
@@ -305,10 +302,6 @@ def primer_dia_del_mes(año, mes):
     # Si la fecha es valida, retornar el dia de la semana
     return d
     
-
-
-
-
 #-------------------------------------------------------------------------------------------------------------------------------------------
 
 '''
@@ -532,71 +525,208 @@ def edad_hoy(fecha):
     except (TypeError, IndexError):
         return False
 
+# -----------------------------------------Pruebas de caja negra por funcion -----------------------------------------
+
+print("Casos de prueba Clase de equivalencia valida para funcion fecha_es_tupla   ")
+print("fecha_es_tupla((2023, 11, 23))","resultado",fecha_es_tupla((2023, 11, 23)))  
+print("fecha_es_tupla((1900, 5, 15))","resultado",fecha_es_tupla((1900, 11, 15)))
+print("fecha_es_tupla((2023, 12, 23))","resultado",fecha_es_tupla((2023, 11, 23)))   
+print("fecha_es_tupla((2023, 1, 12))","resultado",fecha_es_tupla((2023, 2, 12)))
+
+print("Casos de prueba Clase de equivalencia NO valida para funcion fecha_es_tupla   ")
+print("fecha_es_tupla(2023)","resultado",fecha_es_tupla(2023))  
+print("fecha_es_tupla((2023, 13, 23))","resultado",fecha_es_tupla((2023, 13, 23)))  
+print("echa_es_tupla((2023, 11, 0))","resultado",fecha_es_tupla((2023, 11, 0)))  
+print("echa_es_tupla((-2023, 11, 7))","resultado",fecha_es_tupla((-2023, 11, 7)))  
+print("echa_es_tupla((2023, -11, 2))","resultado",fecha_es_tupla((2023, -11, 2)))  
+print("echa_es_tupla((2023, 11, -5))","resultado",fecha_es_tupla((2023, 11, -5)))  
+print("fecha_es_tupla(HOLA)","resultado",fecha_es_tupla('HOLA')) 
+
+print("----------------------------------------------------------------------------------------")
+print("Casos de prueba Clase de equivalencia valida para funcion bisiesto   ")
+
+print("bisiesto(2024)", "resultado", bisiesto(2024))  
+print("bisiesto(2023)", "resultado", bisiesto(2020)) 
+print("bisiesto(1900)", "resultado", bisiesto(1900))
+print("bisiesto(1920)", "resultado", bisiesto(1920))
+
+print("Casos de prueba Clase de equivalencia NO valida para funcion bisiesto   ")
+print("bisiesto(SDSD)", "resultado", bisiesto('SDSD'))  
+print("bisiesto(-1500)", "resultado", bisiesto(-1500)) 
+print("bisiesto(0)", "resultado", bisiesto(0))
+print("bisiesto(1500)", "resultado", bisiesto(1500))
+
+print("----------------------------------------------------------------------------------------")
+
+print("Casos de prueba Clase de equivalencia valida para funcion fecha_es_valida   ")
+
+print("fecha_es_valida((2023, 11, 23))","resultado",fecha_es_valida((2023, 11, 23)))  
+print("fecha_es_valida((2024, 2, 29))","resultado",fecha_es_valida((2024, 2, 29)))  
+print("fecha_es_valida((1900, 11, 23))","resultado",fecha_es_valida((1900, 11, 23)))  
+print("fecha_es_valida((2024, 12, 29))","resultado",fecha_es_valida((2024, 12, 29))) 
 
 
-while True:
-    try:
-        print("Elija una opción:")
-        print("0. Salir")
-        print("1. Verificar si una fecha es tupla")
-        print("2. Verificar si un año es bisiesto")
-        print("3. Determinar fecha valida")
-        print("4. Determinar el dia sigueinte")
-        print("5. Determinar el ordinal del día en un año")
-        print("6. Determinar el día de la semana de una fecha")
-        print("7. Determinar una fecha en el futuro")
-        print("8. Determinar días entre dos fechas")
-        print("9. Determinar la edad desde una fecha hasta hoy")
-        print("10.Obtener la fecha de hoy")
-        print("11. Determinar la edad hasta el dia de hoy")
-        print("12. Imprimir el calendario ")
-        
-        opcion = input("Ingrese el número de la opción (0 para salir): ")
+print("Casos de prueba Clase de equivalencia NO valida para funcion fecha_es_valida   ")
 
-        if opcion == '0':
-            break
-        if opcion == '1':
-            fecha = eval(input("Ingrese una fecha en formato de tupla (año, mes, día): "))
-            print("fecha_es_tupla:", fecha_es_tupla(fecha))
-        elif opcion == '2':
-            año = int(input("Ingrese un año: "))
-            print("Bisiesto:", bisiesto(año))
-        elif opcion == '3':
-            fecha = eval(input("Ingrese una fecha en formato de tupla (año, mes, día): "))
-            print("fecha_es_valida:", fecha_es_valida(fecha))
-        elif opcion == '4':
-            fecha = eval(input("Ingrese una fecha en formato de tupla (año, mes, día): "))
-            print("dia_siguiente:", dia_siguiente(fecha))
-        elif opcion == '5':
-            fecha = eval(input("Ingrese una fecha en formato de tupla (año, mes, día): "))
-            print("ordinal_dia:", ordinal_dia(fecha))
-        elif opcion == '6':
-            año = int(input("Ingrese un año: "))
-            print("dia_semana:")
-            dia_semana(año)
-        elif opcion == '7':
-            fecha = eval(input("Ingrese una fecha en formato de tupla (año, mes, día): "))
-            num = int(input("Ingrese un numero: "))
-            print("fecha_futura:", fecha_futura(fecha,num))
-        elif opcion == '8':
-            fecha1 = eval(input("Ingrese una fecha en formato de tupla (año, mes, día): "))
-            fecha2 = eval(input("Ingrese una fecha2 en formato de tupla (año, mes, día): "))
-            print("dias_entre:", dias_entre(fecha1,fecha2))
-        elif opcion == '9':
-             fecha = eval(input("Ingrese una fecha  en formato de tupla (año, mes, día): "))
-             fecha1 = eval(input("Ingrese una fecha2  en formato de tupla (año, mes, día): "))
-             print("edad_al:", edad_al(fecha,fecha1))
-        elif opcion == '10':
-            print("fecha_hoy:", fecha_hoy())
-        elif opcion == '11':
-            fecha = eval(input("Ingrese una fecha DE NACIMIENTO en formato de tupla (año, mes, día): "))
-            print("edad_hoy:", edad_hoy(fecha))
-        elif opcion== '12':
-            año = int(input("Ingrese un año: "))
-            print("Calendario:", imprimir_3x4(año))
+print("fecha_es_valida((2023, 13, 23))","resultado",fecha_es_valida((2023, 13, 23)))  
+print("fecha_es_valida((2023, 11, 0))","resultado",fecha_es_valida((2023, 11, 0))) 
+print("fecha_es_valida((2023, 2, 29))","resultado",fecha_es_valida((2023, 2, 29)))  
+print("fecha_es_valida((-2023, 13, 23))","resultado",fecha_es_valida((-2023, 13, 23)))  
+print("fecha_es_valida((2023, -11, 0))","resultado",fecha_es_valida((2023, -11, 0))) 
+print("fecha_es_valida((2023, 2, -29))","resultado",fecha_es_valida((2023, 2, -29)))  
+print("fecha_es_valida((2023))","resultado",fecha_es_valida((2023))) 
+print("fecha_es_valida((2023, 11))","resultado",fecha_es_valida((2023, 11))) 
+print("----------------------------------------------------------------------------------------")
 
-        else:
-            print("Opción no válida. Por favor, ingrese un número de opción válido.")
+print("Casos de prueba Clase de equivalencia  valida para funcion dia_siguiente   ")
 
-    except (TypeError, IndexError):
-        print("Algo salio mal") 
+
+print("dia_siguiente((2023, 11, 23))","resultado",dia_siguiente((2023, 11, 23)))  
+print("dia_siguiente((2023, 12, 31))","resultado", dia_siguiente((2023, 12, 31)))  
+print("dia_siguiente((2023, 2, 23))","resultado",dia_siguiente((2023, 2, 23)))  
+print("dia_siguiente((1900, 12, 31))","resultado", dia_siguiente((1900, 12, 31)))  
+print("dia_siguiente((2023, 12, 31))","resultado",dia_siguiente((2023, 12, 31)))  
+
+print("Casos de prueba Clase de equivalencia NO valida para funcion dia_siguiente   ")
+
+print("dia_siguiente((2023, 13, 23))","resultado",dia_siguiente((2023, 13, 23)))  
+print("dia_siguiente((2023, 11, 0))","resultado",dia_siguiente((2023, 11, 0))) 
+print("dia_siguiente((2023, 2, 29))","resultado",dia_siguiente((2023, 2, 29)))  
+print("dia_siguiente((-2023, 13, 23))","resultado",dia_siguiente((-2023, 13, 23)))  
+print("dia_siguiente((2023, -11, 0))","resultado",dia_siguiente((2023, -11, 0))) 
+print("dia_siguiente((2023, 2, -29))","resultado",dia_siguiente((2023, 2, -29)))  
+print("dia_siguiente((2023))","resultado",dia_siguiente((2023))) 
+print("dia_siguiente((2023, 11))","resultado",dia_siguiente((2023, 11))) 
+
+print("----------------------------------------------------------------------------------------")
+
+print("Casos de prueba Clase de equivalencia  valida para funcion dia_siguiente   ")
+print("ordinal_dia((2023, 1, 1))","resultados", ordinal_dia((2023, 1, 1)))  
+print("ordinal_dia((2023, 3, 1))","resultados", ordinal_dia((2023, 3, 1)))  
+print("ordinal_dia((2023, 12, 31))","resultados", ordinal_dia((2023, 12, 31)))  
+print("ordinal_dia((2023, 9, 1))","resultados", ordinal_dia((2023, 9, 1)))  
+print("ordinal_dia((2023, 8, 1))","resultados", ordinal_dia((2023, 8, 1)))  
+print("ordinal_dia((2023, 7, 1))","resultados", ordinal_dia((2023, 7, 1)))  
+
+
+print("Casos de prueba Clase de equivalencia NO valida para funcion ordinal_dia   ")
+
+print("ordinal_dia((2023, 13, 23))","resultado",ordinal_dia((2023, 13, 23)))  
+print("ordinal_dia((2023, 11, 0))","resultado",ordinal_dia((2023, 11, 0))) 
+print("ordinal_dia((2023, 2, 29))","resultado",ordinal_dia((2023, 2, 29)))  
+print("ordinal_dia((-2023, 13, 23))","resultado",ordinal_dia((-2023, 13, 23)))  
+print("ordinal_dia((2023, -11, 0))","resultado",ordinal_dia((2023, -11, 0))) 
+print("ordinal_dia((2023, 2, -29))","resultado",ordinal_dia((2023, 2, -29)))  
+print("ordinal_dia((2023))","resultado",ordinal_dia((2023))) 
+print("ordinal_dia((2023, 11))","resultado",ordinal_dia((2023, 11))) 
+
+
+print("----------------------------------------------------------------------------------------")
+
+print("Casos de prueba Clase de equivalencia  valida para funcion imprimir_3x4   ")
+imprimir_3x4(2023)
+imprimir_3x4(1900)
+imprimir_3x4(2324)
+
+print("Casos de prueba Clase de equivalencia NO valida para funcion imprimir_3x4   ")
+print("imprimir_3x4(-2324))","resultado",imprimir_3x4(-2324)) 
+print("imprimir_3x4(asd))","resultado",imprimir_3x4('asd')) 
+
+print("----------------------------------------------------------------------------------------")
+
+print("Casos de prueba Clase de equivalencia  valida para funcion dia_semana   ")
+print("dia_semana((2023, 11, 23))","resultado",dia_semana((2023, 11, 23)))
+print("dia_semana((2023, 12, 25))","resultado",dia_semana((2023, 12, 25)))
+print("dia_semana((2023, 1, 23))","resultado",dia_semana((2023, 1, 23)))
+print("dia_semana((2023, 2, 12))","resultado",dia_semana((2023, 2, 12)))
+print("dia_semana((2023, 3, 23))","resultado",dia_semana((2023, 3, 23)))
+print("dia_semana((2023, 4, 11))","resultado",dia_semana((2023, 4, 11)))
+print("dia_semana((2023, 5, 10))","resultado",dia_semana((2023, 5, 10)))
+
+print("Casos de prueba Clase de equivalencia NO valida para funcion dia_semana   ")
+
+print("c((2023, 13, 23))","resultado",dia_semana((2023, 13, 23)))  
+print("dia_semana((2023, 11, 0))","resultado",dia_semana((2023, 11, 0))) 
+print("dia_semana((2023, 2, 29))","resultado",dia_semana((2023, 2, 29)))  
+print("dia_semana((-2023, 13, 23))","resultado",dia_semana((-2023, 13, 23)))  
+print("dia_semana((2023, -11, 0))","resultado",dia_semana((2023, -11, 0))) 
+print("dia_semana((2023, 2, -29))","resultado",dia_semana((2023, 2, -29)))  
+print("dia_semana((2023))","resultado",dia_semana((2023))) 
+print("dia_semana((2023, 11))","resultado",dia_semana((2023, 11))) 
+
+print("----------------------------------------------------------------------------------------")
+print("Casos de prueba Clase de equivalencia  valida para funcion fecha_futura   ")
+
+print("fecha_futura((2023, 11, 23), 15", "resultado",fecha_futura((2023, 11, 23), 15))
+print("fecha_futura((2023, 12, 23), 15", "resultado",fecha_futura((2023, 12, 23), 15))
+print("fecha_futura((2023, 1, 10), 4", "resultado",fecha_futura((2023, 11, 10), 4))
+print("fecha_futura((2023, 2, 11), 15", "resultado",fecha_futura((2023, 11, 11), 15))
+print("fecha_futura((2023, 3, 12), 3", "resultado",fecha_futura((2023, 11, 12), 3))
+print("fecha_futura((2023, 4, 4), 15", "resultado",fecha_futura((2023, 11, 4), 15))
+print("fecha_futura((2023, 5, 1), 0", "resultado",fecha_futura((2023, 11, 1), 0))
+
+
+
+print("Casos de prueba Clase de equivalencia NO valida para funcion dia_semana   ")
+
+print("fecha_futura((2023, 13, 23), 15)","resultado",fecha_futura((2023, 13, 23), 15))  
+print("fecha_futura((2023, 11, 0), 15","resultado",fecha_futura((2023, 11, 0), 15)) 
+print("fecha_futura((2023, 2, 29), 15)","resultado",fecha_futura((2023, 2, 29), 15))  
+print("fecha_futura((-2023, 13, 23), 15)","resultado",fecha_futura((-2023, 13, 23), 15))  
+print("fecha_futura((2023, -11, 0), 15)","resultado",fecha_futura((2023, -11, 0), 15)) 
+print("fecha_futura((2023, 2, -29), 15)","resultado",fecha_futura((2023, 2, -29), 15))  
+print("fecha_futura((2023), 15)","resultado",fecha_futura((2023), 15)) 
+print("fecha_futura((2023, 11), 15)","resultado",fecha_futura((2023, 11),15))  
+print("fecha_futura((2023, 2, 11), -15", "resultado",fecha_futura((2023, 11, 11), -15))
+print("fecha_futura((2023, 3, 12), asd", "resultado",fecha_futura((2023, 11, 12), "asd"))
+
+
+
+print("----------------------------------------------------------------------------------------")
+print("Casos de prueba Clase de equivalencia  valida para funcion dias_entre   ")
+
+print("dias_entre((2023, 1, 1), (2023, 12, 31))","resultado",dias_entre((2023, 1, 1), (2023, 12, 31)))
+print("dias_entre((1900, 1, 1), (2023, 12, 31))","resultado",dias_entre((1900, 1, 1), (2023, 12, 31)))
+print("dias_entre((2000, 1, 1), (2023, 12, 31))","resultado",dias_entre((2000, 1, 1), (2023, 12, 31)))
+print("dias_entre((2001, 1, 1), (2023, 12, 31))","resultado",dias_entre((2001, 1, 1), (2023, 12, 31)))
+print("dias_entre((2012, 1, 1), (2023, 12, 31))","resultado",dias_entre((2012, 1, 1), (2023, 12, 31)))
+print("dias_entre((2020, 1, 1), (2023, 12, 31))","resultado",dias_entre((2020, 1, 1), (2023, 12, 31)))
+print("dias_entre((2021, 1, 1), (2023, 12, 31))","resultado",dias_entre((2021, 1, 1), (2023, 12, 31)))
+
+print("----------------------------------------------------------------------------------------")
+print("Casos de prueba Clase de equivalencia  valida para funcion edad_al   ")
+
+print("edad_al((1990, 5, 15), (2023, 11, 23))","resultado",edad_al((1990, 5, 15), (2023, 11, 23)))
+print("edad_al((1990, 5, 15), (2000, 11, 23))","resultado",edad_al((1990, 5, 15), (2000, 11, 23)))
+print("edad_al((1990, 5, 15), (2001, 11, 23))","resultado",edad_al((1990, 5, 15), (2001, 11, 23)))
+print("edad_al((1990, 5, 15), (2002, 11, 23))","resultado",edad_al((1990, 5, 15), (2002, 11, 23)))
+print("edad_al((1990, 5, 15), (2003, 11, 23))","resultado",edad_al((1990, 5, 15), (2003, 11, 23)))
+print("edad_al((1990, 5, 15), (2004, 11, 23))","resultado",edad_al((1990, 5, 15), (2004, 11, 23)))
+print("edad_al((1990, 5, 15), (2005, 11, 23))","resultado",edad_al((1990, 5, 15), (2005, 11, 23)))
+print("edad_al((1990, 5, 15), (2006, 11, 23))","resultado",edad_al((1990, 5, 15), (2006, 11, 23)))
+print("edad_al((1990, 5, 15), (2007, 11, 23))","resultado",edad_al((1990, 5, 15), (2007, 11, 23)))
+
+print("----------------------------------------------------------------------------------------")
+print("Casos de prueba Clase de equivalencia  valida para funcion fecha_hoy   ")
+print(fecha_hoy())
+
+
+
+print("----------------------------------------------------------------------------------------")
+print("Casos de prueba Clase de equivalencia  valida para funcion edad_hoy   ")
+
+print("edad_hoy((1990, 5, 15))","resultado",edad_hoy((1990, 5, 15)))
+print("edad_hoy((2000, 5, 15))","resultado",edad_hoy((2000, 5, 15)))
+print("edad_hoy((2010, 5, 15))","resultado",edad_hoy((2010, 5, 15)))
+print("edad_hoy((2020, 5, 15))","resultado",edad_hoy((2020, 5, 15)))
+
+print("Casos de prueba Clase de equivalencia NO valida para funcion dia_semana   ")
+
+print("edad_hoy((2023, 13, 23))","resultado",edad_hoy((2023, 13, 23)))  
+print("edad_hoy((2023, 11, 0))","resultado",edad_hoy((2023, 11, 0))) 
+print("edad_hoy((2023, 2, 29))","resultado",edad_hoy((2023, 2, 29)))  
+print("edad_hoy((-2023, 13, 23))","resultado",edad_hoy((-2023, 13, 23)))  
+print("edad_hoy((2023, -11, 0))","resultado",edad_hoy((2023, -11, 0))) 
+print("edad_hoy((2023, 2, -29))","resultado",edad_hoy((2023, 2, -29)))  
+print("edad_hoy((2023))","resultado",edad_hoy((2023))) 
+print("edad_hoy((2023, 11))","resultado",edad_hoy((2023, 11))) 
