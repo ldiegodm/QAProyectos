@@ -540,15 +540,16 @@ while True:
         print("0. Salir")
         print("1. Verificar si una fecha es tupla")
         print("2. Verificar si un año es bisiesto")
-        print("3. Determinar el día siguiente a una fecha")
-        print("4. Determinar el ordinal del día en un año")
-        print("5. Imprimir un calendario")
+        print("3. Determinar fecha valida")
+        print("4. Determinar el dia sigueinte")
+        print("5. Determinar el ordinal del día en un año")
         print("6. Determinar el día de la semana de una fecha")
         print("7. Determinar una fecha en el futuro")
         print("8. Determinar días entre dos fechas")
         print("9. Determinar la edad desde una fecha hasta hoy")
         print("10.Obtener la fecha de hoy")
         print("11. Determinar la edad hasta el dia de hoy")
+        print("12. Imprimir el calendario ")
         
         opcion = input("Ingrese el número de la opción (0 para salir): ")
 
@@ -590,6 +591,10 @@ while True:
         elif opcion == '11':
             fecha = eval(input("Ingrese una fecha DE NACIMIENTO en formato de tupla (año, mes, día): "))
             print("edad_hoy:", edad_hoy(fecha))
+        elif opcion==12:
+            año = int(input("Ingrese un año: "))
+            print("Calendario:", imprimir_3x4(año))
+
         else:
             print("Opción no válida. Por favor, ingrese un número de opción válido.")
 

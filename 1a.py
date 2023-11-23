@@ -315,9 +315,10 @@ while True:
         print("0. Salir")
         print("1. Verificar si una fecha es tupla")
         print("2. Verificar si un año es bisiesto")
-        print("3. Determinar el día siguiente a una fecha")
-        print("4. Determinar el ordinal del día en un año")
-        print("5. Imprimir un calendario")
+        print("3. Determinar si la fecha es valida")
+        print("4. Determinar el dia sigueinte")
+        print("5. Determinar dia ordinal")
+        print("6. Imprimir el calendario")
         
         opcion = input("Ingrese el número de la opción (0 para salir): ")
 
@@ -338,6 +339,9 @@ while True:
         elif opcion == '5':
             fecha = eval(input("Ingrese una fecha en formato de tupla (año, mes, día): "))
             print("ordinal_dia:", ordinal_dia(fecha))
+        elif opcion==6:
+            año = int(input("Ingrese un año: "))
+            print("Calendario:", imprimir_3x4(año))
         else:
             print("Opción no válida. Por favor, ingrese un número de opción válido.")
 
